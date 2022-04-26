@@ -1,0 +1,15 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "View/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron View/index.js"
+  },
+  "author": "Guilherme Schubert Medeiros",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^18.1.0"
+  }
+}
