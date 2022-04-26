@@ -5,7 +5,7 @@
   "main": "View/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron View/index.js"
+    "start": "electron main.js"
   },
   "author": "Guilherme Schubert Medeiros",
   "license": "ISC",
