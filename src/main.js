@@ -4,7 +4,7 @@ require('./backend')
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 575,
-    height: 620,
+    height: 650,
     title: "Robocopy GUI",
     resizable: false,
     icon: 'View/MainScreen/assets/icone-powershell.png',
@@ -14,7 +14,7 @@ const createWindow = () => {
     }
   })
   win.loadFile('View/MainScreen/index.html')
-  //win.removeMenu(true)
+  win.removeMenu(true)
 }
 
 app.whenReady().then(() => {

@@ -69,5 +69,19 @@ body {
     background-color: blue;
 }
 .texto-copiando {
+    display: none;
     color: #fff;
+}
+.animaPontinhos {
+    display: none;
+    color: #fff;
+    animation: 3s linear 1s infinite running slidein;
+}
+.hidden {
+    display: none;
+}
+
+@keyframes slidein {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
 }

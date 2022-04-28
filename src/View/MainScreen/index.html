@@ -34,7 +34,7 @@
 					</label>
 				</div>
 				<div class="col-sm-10 pb-3">
-					<input hidden type="text" class="form-control inputPersonalizado" id="inputLog"
+					<input type="text" class="form-control inputPersonalizado hidden" id="inputLog"
 						placeholder="Caminho Para Salvar o Log">
 				</div>
 				<!-- Checkbox-MT -->
@@ -45,10 +45,10 @@
 					</label>
 				</div>
 				<div class="col-sm-10 pb-3">
-					<label hidden class="col-sm-2 col-form-label labelPersonalizado" id="labelMT" for="inputMT">
+					<label class="col-sm-2 col-form-label labelPersonalizado hidden" id="labelMT" for="inputMT">
 						Informe a Quantidade de Threads
 					</label>
-					<input hidden type="number" class="form-control inputPersonalizado" id="inputMT">
+					<input type="number" class="form-control inputPersonalizado hidden" id="inputMT">
 				</div>
 				<!-- Checkbox Outras Opções -->
 				<div class="form-check pb-3">
@@ -71,7 +71,7 @@
 					</label>
 				</div>
 				<div class="col-sm-10 pb-3">
-					<input hidden type="text" class="form-control inputPersonalizado" id="inputExcluirDir"
+					<input type="text" class="form-control inputPersonalizado hidden" id="inputExcluirDir"
 						placeholder="Informe Diretórios Separados Por Vírgula">
 				</div>
 
@@ -82,7 +82,7 @@
 					</label>
 				</div>
 				<div class="col-sm-10 pb-4">
-					<input hidden type="text" class="form-control inputPersonalizado" id="inputExcluirArquivos"
+					<input type="text" class="form-control inputPersonalizado hidden" id="inputExcluirArquivos"
 						placeholder="Informe Arquivos Separados Por Vírgula">
 				</div>
 			</div>
@@ -92,7 +92,7 @@
 				<button onclick="enviarDados(event)" class="btn btn-primary" id="btnEnviarDados">Copiar</button>
 			</div>
 			<div class="col">
-				<p class="texto-copiando pt-3">Copiando ...</p>
+				<p class="texto-copiando pt-3">Copiando <span class="animaPontinhos">...</span></p>
 			</div>
 		</div>
 		<script src="script.js"></script>
