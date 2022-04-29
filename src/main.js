@@ -14,7 +14,7 @@ const createWindow = () => {
     }
   })
   win.loadFile('View/MainScreen/index.html')
-  win.removeMenu(true)
+  /* win.removeMenu(true) */
 }
 
 app.whenReady().then(() => {

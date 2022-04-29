@@ -1,35 +1,70 @@
 const { ipcRenderer } = require('electron')
+let dados = {}
 
 const verificaCheckBox = e => {
     checkboxId = e.target.id
     switch (checkboxId) {
         case 'checkbox-log':
-            e.target.checked ? document.querySelector("#inputLog").classList.remove('hidden') : document.querySelector("#inputLog").classList.add('hidden')
+            const inputLog = document.querySelector("#inputLog")
+            e.target.checked ? acaoQuandoCheckboxChecado(inputLog, true) : acaoQuandoCheckboxChecado(inputLog, false)
             break;
         case 'checkboxMT':
-            e.target.checked ? document.querySelector("#labelMT").classList.remove('hidden') : document.querySelector("#labelMT").classList.add('hidden')
-            e.target.checked ? document.querySelector("#inputMT").classList.remove('hidden') : document.querySelector("#inputMT").classList.add('hidden')
+            const labelMT = document.querySelector("#labelMT")
+            const inputMT = document.querySelector("#inputMT")
+            e.target.checked ? acaoQuandoCheckboxChecado(labelMT, true) : acaoQuandoCheckboxChecado(labelMT, false)
+            e.target.checked ? acaoQuandoCheckboxChecado(inputMT, true) : acaoQuandoCheckboxChecado(inputMT, false)
+            break;
+        case 'checkboxXJD':
+            const checkboxXJD = document.querySelector('#checkboxXJD')
+            e.target.checked ? acaoQuandoCheckboxChecado(checkboxXJD, true) : acaoQuandoCheckboxChecado(checkboxXJD, false)
+            break;
+        case 'checkboxXJF':
+            const checkboxXJF = document.querySelector('#checkboxXJF')
+            e.target.checked ? acaoQuandoCheckboxChecado(checkboxXJF, true) : acaoQuandoCheckboxChecado(checkboxXJF, false)
             break;
         case 'checkboxExcluirDir':
-            e.target.checked ? document.querySelector("#inputExcluirDir").classList.remove('hidden') : document.querySelector("#inputExcluirDir").classList.add('hidden')
+            const inputExcluirDir = document.querySelector("#inputExcluirDir")
+            e.target.checked ? acaoQuandoCheckboxChecado(inputExcluirDir, true) : acaoQuandoCheckboxChecado(inputExcluirDir, false)
             break;
         case 'checkboxExcluirArquivos':
-            e.target.checked ? document.querySelector("#inputExcluirArquivos").classList.remove('hidden') : document.querySelector("#inputExcluirArquivos").classList.add('hidden')
+            const inputExcluirArquivos = document.querySelector("#inputExcluirArquivos")
+            e.target.checked ? acaoQuandoCheckboxChecado(inputExcluirArquivos, true) : acaoQuandoCheckboxChecado(inputExcluirArquivos, false)
             break;
     }
 }
 
-document.querySelector('#checkbox-log').addEventListener("change", e => verificaCheckBox(e))
-document.querySelector('#checkboxMT').addEventListener("change", e => verificaCheckBox(e))
-document.querySelector('#checkboxXJD').addEventListener("change", e => verificaCheckBox(e))
-document.querySelector('#checkboxXJF').addEventListener("change", e => verificaCheckBox(e))
-document.querySelector('#checkboxExcluirDir').addEventListener("change", e => verificaCheckBox(e))
-document.querySelector('#checkboxExcluirArquivos').addEventListener("change", e => verificaCheckBox(e))
+const verificaCheckBoxSemInputOuLabel = elementoPaginaID => {
+    elementoPaginaID === 'checkboxXJD' || elementoPaginaID === 'checkboxXJF' ? true : false
+}
+
+const acaoQuandoCheckboxChecado = (elementoPagina, checado) => {
+    const elementoPaginaID = elementoPagina.id
+    if (checado) {
+        verificaCheckBoxSemInputOuLabel(elementoPagina) ? dados[elementoPaginaID] = elementoPagina.value : ''
+        elementoPagina.classList.remove('hidden')
+        if (elementoPagina.tagName === 'INPUT') {
+            dados[elementoPaginaID] = elementoPagina.value
+            elementoPagina.addEventListener('input', e => dados[elementoPaginaID] = e.target.value)
+        }
+    } else {
+        delete dados[elementoPaginaID]
+    }
+}
+
+document.querySelector('#checkbox-log').addEventListener("change", verificaCheckBox)
+document.querySelector('#checkboxMT').addEventListener("change", verificaCheckBox)
+document.querySelector('#checkboxXJD').addEventListener("change", verificaCheckBox)
+document.querySelector('#checkboxXJF').addEventListener("change", verificaCheckBox)
+document.querySelector('#checkboxExcluirDir').addEventListener("change", verificaCheckBox)
+document.querySelector('#checkboxExcluirArquivos').addEventListener("change", verificaCheckBox)
 
 const enviarDados = event => {
     event.preventDefault()
     const inputOrigem = document.querySelector('#inputOrigem').value
     const inputDestino = document.querySelector('#inputDestino').value
+    dados.inputOrigem = inputOrigem
+    dados.inputDestino = inputDestino
+    console.log(dados)
     ipcRenderer.send('enviar-dados', 'pong')
     ipcRenderer.once('enviar-dados', (event, resp) => {
         console.log(resp)
