@@ -40,13 +40,14 @@ const verificaCheckBoxSemInputOuLabel = elementoPaginaID => {
 const acaoQuandoCheckboxChecado = (elementoPagina, checado) => {
     const elementoPaginaID = elementoPagina.id
     if (checado) {
-        verificaCheckBoxSemInputOuLabel(elementoPagina) ? dados[elementoPaginaID] = elementoPagina.value : ''
+        verificaCheckBoxSemInputOuLabel(elementoPaginaID) ? dados[elementoPaginaID] = elementoPagina.value : ''
         elementoPagina.classList.remove('hidden')
         if (elementoPagina.tagName === 'INPUT') {
             dados[elementoPaginaID] = elementoPagina.value
             elementoPagina.addEventListener('input', e => dados[elementoPaginaID] = e.target.value)
         }
     } else {
+        verificaCheckBoxSemInputOuLabel(elementoPaginaID) ? '' : elementoPagina.classList.add('hidden')
         delete dados[elementoPaginaID]
     }
 }
