@@ -1,3 +1,4 @@
+
 const { ipcRenderer } = require('electron')
 let dados = {}
 
@@ -34,7 +35,9 @@ const verificaCheckBox = e => {
 }
 
 const verificaCheckBoxSemInputOuLabel = elementoPaginaID => {
-    elementoPaginaID === 'checkboxXJD' || elementoPaginaID === 'checkboxXJF' ? true : false
+    let valida = false
+    elementoPaginaID === 'checkboxXJD' || elementoPaginaID === 'checkboxXJF' ? valida =  true : valida = false
+    return valida
 }
 
 const acaoQuandoCheckboxChecado = (elementoPagina, checado) => {
