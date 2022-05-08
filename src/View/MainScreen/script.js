@@ -1,6 +1,14 @@
 
 const { ipcRenderer } = require('electron')
-let dados = {}
+let dados = {
+    inputOrigem: '',
+    inputDestino: '',
+    inputLog: '',
+    inputMT: '',
+    checkboxXJD: '',
+    inputExcluirDir: '',
+    inputExcluirArquivos: ''
+}
 
 const verificaCheckBox = e => {
     checkboxId = e.target.id
@@ -36,22 +44,26 @@ const verificaCheckBox = e => {
 
 const verificaCheckBoxSemInputOuLabel = elementoPaginaID => {
     let valida = false
-    elementoPaginaID === 'checkboxXJD' || elementoPaginaID === 'checkboxXJF' ? valida =  true : valida = false
+    elementoPaginaID === 'checkboxXJD' || elementoPaginaID === 'checkboxXJF' ? valida = true : valida = false
     return valida
 }
 
 const acaoQuandoCheckboxChecado = (elementoPagina, checado) => {
     const elementoPaginaID = elementoPagina.id
+    const validacao = verificaCheckBoxSemInputOuLabel(elementoPaginaID)
     if (checado) {
-        verificaCheckBoxSemInputOuLabel(elementoPaginaID) ? dados[elementoPaginaID] = elementoPagina.value : ''
+        validacao ? dados[elementoPaginaID] = 'check' : ''
         elementoPagina.classList.remove('hidden')
         if (elementoPagina.tagName === 'INPUT') {
-            dados[elementoPaginaID] = elementoPagina.value
+            verificaCheckBoxSemInputOuLabel(elementoPaginaID) ? '' : dados[elementoPaginaID] = elementoPagina.value
             elementoPagina.addEventListener('input', e => dados[elementoPaginaID] = e.target.value)
         }
     } else {
-        verificaCheckBoxSemInputOuLabel(elementoPaginaID) ? '' : elementoPagina.classList.add('hidden')
-        delete dados[elementoPaginaID]
+        if (validacao) {
+            dados[elementoPaginaID] = 'noCheck'
+        } else {
+            elementoPagina.classList.add('hidden')
+        }
     }
 }
 
@@ -68,8 +80,7 @@ const enviarDados = event => {
     const inputDestino = document.querySelector('#inputDestino').value
     dados.inputOrigem = inputOrigem
     dados.inputDestino = inputDestino
-    console.log(dados)
-    ipcRenderer.send('enviar-dados', 'pong')
+    ipcRenderer.send('enviar-dados', dados)
     ipcRenderer.once('enviar-dados', (event, resp) => {
         console.log(resp)
     })
